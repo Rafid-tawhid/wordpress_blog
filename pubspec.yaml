@@ -39,6 +39,8 @@ dependencies:
   flutter_easyloading: ^3.0.5
   html_editor_enhanced: ^2.5.1
   flutter_summernote: ^1.1.1
+  flutter_widget_from_html: ^0.10.5+3
+  custom_line_indicator_bottom_navbar: ^0.0.8
 
 dev_dependencies:
   flutter_test:
