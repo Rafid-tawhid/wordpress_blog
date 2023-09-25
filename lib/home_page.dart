@@ -185,22 +185,14 @@ class _HomePageState extends State<HomePage> {
               onPressed: () async {
                 // var txt = await controller.getText();
                 // print(txt);
-                var txt = await controller.getText();
+                if(con1.text.isNotEmpty||con1.text!=null){
+                  var txt = await controller.getText();
+                  EasyLoading.show();
+                  final html=await replaceBase64ImagesWithUrls(txt);
+                  print('FINAL ${html}');
+                  postBlog(con1.text, html);
 
-                // if(txt.contains('src=\"data:')){
-                //   for (String imageUrl in imageList) {
-                //     String pattern = 'src="data:[^"]*"';
-                //     String replacement = 'src="$imageUrl"';
-                //     txt = txt.replaceAll(RegExp(pattern), replacement);
-                //   }
-                // }
-                // // Print the updated text
-                // print('FINAL RESULT ${txt}');
-                EasyLoading.show();
-                final html=await replaceBase64ImagesWithUrls(txt);
-
-                print('FINAL ${html}');
-               postBlog(con1.text, html);
+                }
 
                 // summernote();
               },
@@ -212,8 +204,9 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> postBlog(String title, String content) async {
     final String apiUrl = 'https://dev.bitbirds.net/rafid/wp-json/wp/v2/posts';
-    final String username = 'rafid';
-    final String password = 'J9i5FIS6yyta3eusVUWnvHLP';
+    final String username = 'rafid2';
+    //final String password = 'J9i5FIS6yyta3eusVUWnvHLP';
+    final String password = '0t66bHKTEHyJJhIzXN92UBQf';
     // final value = (await _keyEditor.currentState?.getText());
     // print('VALUE ${value}');
     EasyLoading.show();
@@ -244,6 +237,12 @@ class _HomePageState extends State<HomePage> {
     } else {
       print('Failed to post blog. Status code: ${response.statusCode}');
       print('Response body: ${response.body}');
+      final jsonResponse = json.decode(response.body);
+      final message = jsonResponse['message'];
+      showDialog(context: context, builder: (context)=>AlertDialog(
+        title: Text('Somthing Wrong!'),
+        content: Text(message.toString()),
+      ));
       EasyLoading.dismiss();
     }
   }

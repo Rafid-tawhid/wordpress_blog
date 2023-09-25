@@ -41,6 +41,8 @@ dependencies:
   flutter_summernote: ^1.1.1
   flutter_widget_from_html: ^0.10.5+3
   custom_line_indicator_bottom_navbar: ^0.0.8
+  webview_flutter: ^4.3.0
+
 
 dev_dependencies:
   flutter_test:

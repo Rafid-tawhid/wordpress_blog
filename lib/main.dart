@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import 'editor.dart';
+import 'post_page.dart';
 import 'home_page.dart';
 import 'launcher_page.dart';
 

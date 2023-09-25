@@ -4,7 +4,7 @@ import 'package:wordpress_blog/home_page.dart';
 import 'package:wordpress_blog/service/request_service.dart';
 import 'package:wordpress_blog/show_blog.dart';
 
-import 'editor.dart';
+import 'post_page.dart';
 
 class MyExample extends StatefulWidget {
   @override
@@ -17,7 +17,8 @@ class _MyExampleState extends State<MyExample> {
 
   List<Widget> _widgetOptions = [
     HomePage(),
-    HtmlEditorExample(title: 'HTML',),
+    WebViewExample(),
+    //HtmlEditorExample(title: 'HTML',),
     ShowBlogPage()
   ];
 
@@ -30,9 +31,7 @@ class _MyExampleState extends State<MyExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Example'),
-      ),
+
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
