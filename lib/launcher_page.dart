@@ -4,6 +4,8 @@ import 'package:wordpress_blog/home_page.dart';
 import 'package:wordpress_blog/service/request_service.dart';
 import 'package:wordpress_blog/show_blog.dart';
 
+import 'add_new_page.dart';
+import 'widgets/drawer.dart';
 import 'post_page.dart';
 
 class MyExample extends StatefulWidget {
@@ -19,7 +21,7 @@ class _MyExampleState extends State<MyExample> {
     HomePage(),
     WebViewExample(),
     //HtmlEditorExample(title: 'HTML',),
-    ShowBlogPage()
+    AddNewPages(),
   ];
 
 
@@ -31,7 +33,8 @@ class _MyExampleState extends State<MyExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(title: Text('Wordpress'),),
+      drawer: MyDrawer(),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -59,11 +62,11 @@ class _MyExampleState extends State<MyExample> {
             icon: Icons.home,
           ),
           CustomBottomBarItems(
-            label: 'Edit',
-            icon: Icons.edit,
+            label: 'Post',
+            icon: Icons.post_add,
           ),
           CustomBottomBarItems(
-              label: 'Blog', icon: Icons.credit_card_outlined),
+              label: 'Pages', icon: Icons.contact_page_outlined),
 
         ],
       ),
