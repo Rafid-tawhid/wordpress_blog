@@ -268,7 +268,6 @@ class _HomePageState extends State<HomePage> {
         'Content-Type': 'application/octet-stream',
         'Authorization':'Basic ${base64Encode(utf8.encode('$username:$password'))}',
         'Content-Disposition': 'attachment; filename=${DateTime.timestamp()}.png',
-
       },
       body: imageBytes,
     );

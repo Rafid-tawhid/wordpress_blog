@@ -7,6 +7,8 @@ import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+
+import 'const/domain.dart';
 // Import for iOS features.
 
 const String kNavigationExamplePage = '''
@@ -162,7 +164,7 @@ Page resource error:
         },
       )
     //..loadRequest(Uri.parse('https://dev.bitbirds.net/rafid/wp-admin/post-new.php'));
-      ..loadRequest(Uri.parse('https://dev.bitbirds.net/rafid/wp-admin/edit.php?post_type=page'));
+      ..loadRequest(Uri.parse('https://${MyConst.domainUrl}/wp-admin/edit.php?post_type=page'));
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
@@ -199,6 +201,7 @@ Page resource error:
               color: Colors.white,
               backgroundColor: Colors.green,
             ),
+
             Expanded(child: WebViewWidget(controller: _controller)),
           ],
         ),
@@ -225,7 +228,9 @@ Page resource error:
   // jQuery('#wp-admin-bar-site-name').remove();
 
   void injectJavascript(WebViewController controller) async {
-    var hide='''document.querySelector('#wpadminbar').remove();''';
+    var hide='''document.querySelector('#wpadminbar').remove();
+    jQuery('#wpbody').css('padding-top','10px');
+    ''';
     controller.runJavaScript(hide);
   }
 }
@@ -448,13 +453,13 @@ class SampleMenu extends StatelessWidget {
       ),
     );
     await webViewController.loadRequest(Uri.parse(
-      'https://dev.bitbirds.net/rafid/wp-admin/edit.php?post_type=page',
+      'https://${MyConst.domainUrl}/wp-admin/edit.php?post_type=page',
     ));
   }
 
   Future<void> _onDoPostRequest() {
     return webViewController.loadRequest(
-      Uri.parse('https://dev.bitbirds.net/rafid/wp-admin/edit.php?post_type=page'),
+      Uri.parse('https://${MyConst.domainUrl}/wp-admin/edit.php?post_type=page'),
       method: LoadRequestMethod.post,
       headers: <String, String>{'foo': 'bar', 'Content-Type': 'text/plain'},
       body: Uint8List.fromList('Test Body'.codeUnits),

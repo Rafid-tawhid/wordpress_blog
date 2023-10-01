@@ -8,7 +8,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 // Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
-import 'package:wordpress_blog/const/domain.dart';
+
+import 'const/domain.dart';
 
 const String kNavigationExamplePage = '''
 <!DOCTYPE html><html>
@@ -65,14 +66,14 @@ const String kTransparentBackgroundPage = '''
   </html>
 ''';
 
-class WebViewExample extends StatefulWidget {
-  const WebViewExample({super.key});
+class CommentsPage extends StatefulWidget {
+  const CommentsPage({super.key});
 
   @override
-  State<WebViewExample> createState() => _WebViewExampleState();
+  State<CommentsPage> createState() => _CommentsPageState();
 }
 
-class _WebViewExampleState extends State<WebViewExample> {
+class _CommentsPageState extends State<CommentsPage> {
   late final WebViewController _controller;
 // selects all elements containing 'active' in CSS class
 //   ElementQuery $elems = $('.active');
@@ -152,18 +153,18 @@ Page resource error:
         onMessageReceived: (JavaScriptMessage message) {
           // Hide the element with a specific ID using JavaScript
           print('JAVA SCRIPT CALLED 222');
-         final script = "document.querySelector('#wp-admin-bar-menu-toggle').style.display = 'none';";
+          final script = "document.querySelector('#wp-admin-bar-menu-toggle').style.display = 'none';";
           //final element = 'document.getElementById("wp-admin-bar-menu-toggle").remove();';
 
-        //  final script = "jQuery('#wp-admin-bar-menu-toggle').remove();";
+          //  final script = "jQuery('#wp-admin-bar-menu-toggle').remove();";
           _controller.runJavaScript(script).then((value)
           {
             print('JAVA SCRIPT CALLED');
           });
         },
       )
-      //..loadRequest(Uri.parse('https://dev.bitbirds.net/rafid/wp-admin/post-new.php'));
-      ..loadRequest(Uri.parse('https://${MyConst.domainUrl}/wp-admin/edit.php'));
+    //..loadRequest(Uri.parse('https://dev.bitbirds.net/rafid/wp-admin/post-new.php'));
+      ..loadRequest(Uri.parse('https://${MyConst.domainUrl}/wp-admin/edit-comments.php'));
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
@@ -185,7 +186,7 @@ Page resource error:
   @override
   Widget build(BuildContext context) {
 
-    print('Rafid : : https://${MyConst.domainUrl}/wp-admin/edit.php}');
+
 
 
     return SafeArea(
@@ -200,7 +201,6 @@ Page resource error:
               color: Colors.white,
               backgroundColor: Colors.green,
             ),
-            SizedBox(height: 4,),
             Expanded(child: WebViewWidget(controller: _controller)),
           ],
         ),
@@ -232,8 +232,7 @@ Page resource error:
   void injectJavascript(WebViewController controller) async {
     controller.runJavaScript( '''
     jQuery('#wpadminbar').remove();
-    jQuery('#wpbody').css('padding-top','10px');
-    ''');
+    jQuery('#wpbody').css('padding-top','10px');;''');
   }
 }
 
@@ -455,13 +454,13 @@ class SampleMenu extends StatelessWidget {
       ),
     );
     await webViewController.loadRequest(Uri.parse(
-      'https://${MyConst.domainUrl}/wp-admin/edit.php',
+      'https://${MyConst.domainUrl}/wp-admin/edit-comments.php',
     ));
   }
 
   Future<void> _onDoPostRequest() {
     return webViewController.loadRequest(
-      Uri.parse('https://${MyConst.domainUrl}/wp-admin/edit.php'),
+      Uri.parse('https://${MyConst.domainUrl}/wp-admin/edit-comments.php'),
       method: LoadRequestMethod.post,
       headers: <String, String>{'foo': 'bar', 'Content-Type': 'text/plain'},
       body: Uint8List.fromList('Test Body'.codeUnits),
