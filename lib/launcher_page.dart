@@ -40,7 +40,7 @@ class _MyExampleState extends State<MyExample> {
 
   List<Widget> _widgetOptions = [
     HomePage(),
-    WebViewExample(),
+    AddNewPostPage(),
     //HtmlEditorExample(title: 'HTML',),
     AddNewPages(),
   ];

@@ -65,14 +65,14 @@ const String kTransparentBackgroundPage = '''
   </html>
 ''';
 
-class AddNewPostPage extends StatefulWidget {
-  const AddNewPostPage({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<AddNewPostPage> createState() => _AddNewPostPageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _AddNewPostPageState extends State<AddNewPostPage> {
+class _LoginScreenState extends State<LoginScreen> {
   late final WebViewController _controller;
 // selects all elements containing 'active' in CSS class
 //   ElementQuery $elems = $('.active');
@@ -115,7 +115,7 @@ class _AddNewPostPageState extends State<AddNewPostPage> {
           },
           onPageFinished: (String url) {
             debugPrint('Page finished loading: $url');
-            injectJavascript(_controller);
+            //injectJavascript(_controller);
           },
           onWebResourceError: (WebResourceError error) {
             debugPrint('''
@@ -152,19 +152,19 @@ Page resource error:
         onMessageReceived: (JavaScriptMessage message) {
           // Hide the element with a specific ID using JavaScript
           print('JAVA SCRIPT CALLED 222');
-         final script = "document.querySelector('#wp-admin-bar-menu-toggle').style.display = 'none';";
+          final script = "document.querySelector('#wp-admin-bar-menu-toggle').style.display = 'none';";
           //final element = 'document.getElementById("wp-admin-bar-menu-toggle").remove();';
 
-        //  final script = "jQuery('#wp-admin-bar-menu-toggle').remove();";
+          //  final script = "jQuery('#wp-admin-bar-menu-toggle').remove();";
           _controller.runJavaScript(script).then((value)
           {
             print('JAVA SCRIPT CALLED');
-            print("https://${MyConst.domainUrl}/wp-admin/edit.php");
+            print("https://${MyConst.loginUrl}");
           });
         },
       )
-      //..loadRequest(Uri.parse('https://dev.bitbirds.net/rafid/wp-admin/post-new.php'));
-      ..loadRequest(Uri.parse('https://${MyConst.domainUrl}/wp-admin/edit.php'));
+    //..loadRequest(Uri.parse('https://dev.bitbirds.net/rafid/wp-admin/post-new.php'));
+      ..loadRequest(Uri.parse('https://${MyConst.loginUrl}'));
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
@@ -186,7 +186,7 @@ Page resource error:
   @override
   Widget build(BuildContext context) {
 
-    print('Rafid : : https://${MyConst.domainUrl}/wp-admin/edit.php}');
+    print('Rafid : : https://${MyConst.loginUrl}}');
 
 
     return SafeArea(
@@ -456,13 +456,13 @@ class SampleMenu extends StatelessWidget {
       ),
     );
     await webViewController.loadRequest(Uri.parse(
-      'https://${MyConst.domainUrl}/wp-admin/edit.php',
+      'https://${MyConst.loginUrl}',
     ));
   }
 
   Future<void> _onDoPostRequest() {
     return webViewController.loadRequest(
-      Uri.parse('https://${MyConst.domainUrl}/wp-admin/edit.php'),
+      Uri.parse('https://${MyConst.loginUrl}'),
       method: LoadRequestMethod.post,
       headers: <String, String>{'foo': 'bar', 'Content-Type': 'text/plain'},
       body: Uint8List.fromList('Test Body'.codeUnits),

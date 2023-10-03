@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordpress_blog/post_page.dart';
+import 'package:wordpress_blog/login_screen.dart';
 import 'package:wordpress_blog/wordpress_url.dart';
 
 import 'add_new_page.dart';
@@ -14,7 +15,7 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> items = ['Post','Pages','Custom Post','Media','Comments','Change Website'];
+    List<String> items = ['Post','Pages','Custom Post','Media','Comments','Change Url','Login'];
     return Scaffold(
       appBar: AppBar(title: Text('Dashboard'),),
       body: Padding(
@@ -34,7 +35,7 @@ class Dashboard extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => WebViewExample(),
+                      builder: (context) => AddNewPostPage(),
                     ),
                   );
                 }
@@ -70,13 +71,23 @@ class Dashboard extends StatelessWidget {
                     ),
                   );
                 }
-                if(items[index]=='Change Website'){
+                if(items[index]=='Change Url'){
                   final pref=await SharedPreferences.getInstance();
                   pref.remove("domain");
+                  pref.remove("login");
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => WordPressUrl(),
+                    ),
+                  );
+                }
+                if(items[index]=='Login'){
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginScreen(),
                     ),
                   );
                 }
